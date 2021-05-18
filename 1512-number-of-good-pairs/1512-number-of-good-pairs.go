@@ -25,15 +25,23 @@ package main
 import "log"
 
 /*
-  Cách giải đơn giản là for qua và vét cạn tất cả
-  các case có thể so sánh và + vào result.
-  Tuy nhiên cách này sẽ làm độ phức tạp thuật toán
-  tang cao gần như là O(n^2)
+  Cách 1:
+    Cách giải đơn giản là for qua và vét cạn tất cả
+    các case có thể so sánh và + vào result.
+    Tuy nhiên cách này sẽ làm độ phức tạp thuật toán
+    tang cao
+  Độ phức tạp thuật toán: O(n^2)
+  Độ phức tạp sử dụng bộ nhớ: O(1)
 */
 func numIdenticalPairs(nums []int) int {
 	result := 0
 
-	for i := 0; i < len(nums); i++ {
+	/*
+	   Giải thích:
+	     Phải `len(nums) - 1` vì chạy đến cuối chả có so với ai hết
+	     không cần thiết phải chạy
+	*/
+	for i := 0; i < len(nums)-1; i++ {
 		for j := i + 1; j < len(nums); j++ {
 			if nums[i] == nums[j] {
 				result++
