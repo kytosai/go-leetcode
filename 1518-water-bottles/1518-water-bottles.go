@@ -27,7 +27,7 @@ func numWaterBottles(numBottles int, numExchange int) int {
 	// Tổng số chai đã uống
 	numTotalDrinkBottles := numBottles
 
-	// Tổng số trai rỗng
+	// Tổng số chai rỗng (vì lần đầu uống hết nên gán trực tiếp)
 	numEmptyBottles := numBottles
 
 	for {
@@ -38,13 +38,16 @@ func numWaterBottles(numBottles int, numExchange int) int {
 		// Giảm số chai nước rỗng xuống sau khi đã đổi
 		numEmptyBottles = numEmptyBottles - (numWaterBottlesCanExchange * numExchange)
 
-		// Sau đó lấy nước uống
+		// Sau đó lấy nước đã đổi được uống
 		// Cập nhật số chai đã uống được lên
 		numTotalDrinkBottles += numWaterBottlesCanExchange
 
-		// Uống hết nước các chai đã đổi
+		// Sau khi uống hết các chai đã đổi
+		// Cập nhật lại số chai rỗng có được
 		numEmptyBottles += numWaterBottlesCanExchange
 
+		// Nếu số chai rỗng ít hơn điều kiện số chai đổi được
+		// chai có nước ta dừng lại
 		if numEmptyBottles < numExchange {
 			return numTotalDrinkBottles
 		}
