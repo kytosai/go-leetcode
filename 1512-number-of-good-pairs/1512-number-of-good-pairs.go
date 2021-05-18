@@ -22,6 +22,32 @@
 */
 package main
 
-func main() {
+import "log"
 
+/*
+  Cách giải đơn giản là for qua và vét cạn tất cả
+  các case có thể so sánh và + vào result.
+  Tuy nhiên cách này sẽ làm độ phức tạp thuật toán
+  tang cao gần như là O(n^2)
+*/
+func numIdenticalPairs(nums []int) int {
+	result := 0
+
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] == nums[j] {
+				result++
+			}
+		}
+	}
+
+	return result
+}
+
+func main() {
+	log.Println("numIdenticalPairs([]int{1,2,3,1,1,3})", numIdenticalPairs([]int{1, 2, 3, 1, 1, 3}))
+
+	log.Println("numIdenticalPairs([]int{1,1,1,1})", numIdenticalPairs([]int{1, 1, 1, 1}))
+
+	log.Println("numIdenticalPairs([]int{1,2,3})", numIdenticalPairs([]int{1, 2, 3}))
 }
