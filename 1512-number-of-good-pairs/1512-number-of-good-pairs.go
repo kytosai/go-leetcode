@@ -22,7 +22,9 @@
 */
 package main
 
-import "log"
+import (
+	"log"
+)
 
 /*
   Cách 1:
@@ -33,7 +35,7 @@ import "log"
   Độ phức tạp thuật toán: O(n^2)
   Độ phức tạp sử dụng bộ nhớ: O(1)
 */
-func numIdenticalPairs(nums []int) int {
+func numIdenticalPairsC1(nums []int) int {
 	result := 0
 
 	/*
@@ -52,10 +54,37 @@ func numIdenticalPairs(nums []int) int {
 	return result
 }
 
+/*
+  Cách 2:
+    Độ phức tạp thuật toán: O(n)
+    Độ phức tạp sử dụng bộ nhớ: O(n) -> bởi vì tình huống xui rủi nhất là không co bất
+    kỳ 1 item nào trong array `nums` trùng nhau tức là good pair trả về của `numIdenticalPairsC2()`
+    là 0 -> cách này hy sinh bộ nhớ nhưng bù lại tốc độ sẽ nhanh
+*/
+func numIdenticalPairsC2(nums []int) int {
+	result := 0
+
+	numCoutMap := map[int]int{}
+
+	for i := 0; i < len(nums); i++ {
+		count, isExist := numCoutMap[nums[i]]
+		if isExist {
+			result = result + count
+			numCoutMap[nums[i]] = count + 1
+		} else {
+			numCoutMap[nums[i]] = 1
+		}
+	}
+
+	return result
+}
+
 func main() {
-	log.Println("numIdenticalPairs([]int{1,2,3,1,1,3})", numIdenticalPairs([]int{1, 2, 3, 1, 1, 3}))
+	log.Println("numIdenticalPairs([]int{1,1,1,1,1,1})", numIdenticalPairsC2([]int{1, 1, 1, 1, 1, 1}))
 
-	log.Println("numIdenticalPairs([]int{1,1,1,1})", numIdenticalPairs([]int{1, 1, 1, 1}))
+	log.Println("numIdenticalPairs([]int{1,2,3,1,1,3})", numIdenticalPairsC2([]int{1, 2, 3, 1, 1, 3}))
 
-	log.Println("numIdenticalPairs([]int{1,2,3})", numIdenticalPairs([]int{1, 2, 3}))
+	log.Println("numIdenticalPairs([]int{1,1,1,1})", numIdenticalPairsC2([]int{1, 1, 1, 1}))
+
+	log.Println("numIdenticalPairs([]int{1,2,3})", numIdenticalPairsC2([]int{1, 2, 3}))
 }
