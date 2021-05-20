@@ -67,10 +67,10 @@ func numIdenticalPairsC2(nums []int) int {
 	numCoutMap := map[int]int{}
 
 	for i := 0; i < len(nums); i++ {
-		count, isExist := numCoutMap[nums[i]]
+		apearCount, isExist := numCoutMap[nums[i]]
 		if isExist {
-			result = result + count
-			numCoutMap[nums[i]] = count + 1
+			result = result + apearCount
+			numCoutMap[nums[i]] = apearCount + 1
 		} else {
 			numCoutMap[nums[i]] = 1
 		}
